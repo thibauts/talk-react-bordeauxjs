@@ -1,2 +1,2 @@
-Hello, BordeauxJS !
-===================
+Keep calm and React !
+=====================
