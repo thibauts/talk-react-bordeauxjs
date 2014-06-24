@@ -1,2 +1,2 @@
-talk-react-bordeauxjs
-=====================
+Hello, BordeauxJS !
+===================
