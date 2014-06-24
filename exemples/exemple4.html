@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script src="http://fb.me/react-0.10.0.js"></script>
+  <script src="http://fb.me/JSXTransformer-0.10.0.js"></script>
+  <script type="text/jsx">
+    /** @jsx React.DOM */
+
+    var Hello = React.createClass({
+      render: function() {
+        return <p>Hello, {this.props.name} !</p>;
+      }
+    });  
+
+    var HelloBordeauxJS = React.createClass({
+      render: function() {
+        return (
+          <div>
+            <Hello name="BordeauxJS" />
+          </div>
+        );
+      }
+    });
+
+    window.addEventListener('load', function() {
+      React.renderComponent(<HelloBordeauxJS />, document.body); 
+    }, false);
+  </script>
+</head>
+<body>
+</body>
+</html>

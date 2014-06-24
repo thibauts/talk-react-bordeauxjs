@@ -1,0 +1,242 @@
+/* ----- BASE ----- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: 'clearsans', helvetica, arial, sans-serif;
+  font-size: 20px;
+}
+
+body {
+  font-size: 1rem;
+}
+
+strong {
+  font-family: 'clearsans-bold';
+}
+
+@font-face {
+  font-family: 'clearsans';
+  src: url('fonts/ClearSans-Regular.svg');
+  src: url('fonts/ClearSans-Regular.svg') format('svg'),
+       url('fonts/ClearSans-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'clearsans-bold';
+  src: url('fonts/ClearSans-Bold.svg');
+  src: url('fonts/ClearSans-Bold.svg') format('svg'),
+       url('fonts/ClearSans-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'clearsans-medium';
+  src: url('fonts/ClearSans-Medium.svg');
+  src: url('fonts/ClearSans-Medium.svg') format('svg'),
+       url('fonts/ClearSans-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'clearsans-italic';
+  src: url('fonts/ClearSans-Italic.svg');
+  src: url('fonts/ClearSans-Italic.svg') format('svg'),
+       url('fonts/ClearSans-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ----- LAYOUT & TRANSITIONS ----- */
+.bespoke-parent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+section {
+  display: none;
+}
+
+.bespoke-slide {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+  width: 60rem;
+  height: 40rem;
+  margin-left: -30rem;
+  margin-top: -20rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  transition: all 300ms ease;
+  -webkit-transform-origin: 50% 50% -10rem;
+  -moz-transform-origin: 50% 50% -10rem;
+  transform-origin: 50% 50% -10rem;
+}
+
+.bespoke-active {
+  -webkit-transform: rotateY(0);
+  -moz-transform: rotateY(0);
+  transform: rotateY(0);
+}
+
+.bespoke-before {
+  -webkit-transform: rotateY(-90deg);
+  -moz-transform: rotateY(-90deg);
+  transform: rotateY(-90deg);
+}
+
+.bespoke-after {
+  -webkit-transform: rotateY(90deg);
+  -moz-transform: rotateY(90deg);
+  transform: rotateY(90deg);
+}
+
+.bespoke-inactive {
+  opacity: 0;
+  z-index: 1;
+}
+
+.bespoke-active {
+  opacity: 1;
+  z-index: 2;
+}
+
+.bespoke-bullet {
+  transition: opacity 200ms ease;
+}
+
+.bespoke-bullet-active {
+  opacity: 1;
+}
+
+.bespoke-bullet-inactive {
+  opacity: 0;
+}
+
+/* ----- STYLE ----- */
+body {
+  background-color: white;
+  color: #333;
+  text-shadow: 0.05rem 0.05rem 0.05rem rgba(0, 0, 0, 0.2);
+}
+
+.bespoke-parent {
+}
+
+.bespoke-slide {
+}
+
+h1 {
+  font-family: 'clearsans-medium';
+  font-size: 6rem;
+  color: #555;
+}
+
+.title {
+  font-family: 'clearsans-medium';
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.title .logo {
+  width: 10rem;
+}
+
+.title div {
+  font-size: 6rem;
+  line-height: 6rem;
+  color: #555;
+}
+
+.dark .title div {
+  color: white;
+}
+
+.title .small {
+  font-size: 3rem;
+  line-height: 3rem;
+}
+
+h2 {
+  font-family: 'clearsans-medium';
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.dark h2 {
+  color: white;
+}
+
+h3 {
+  font-family: 'clearsans-medium';
+  font-size: 1.7rem;
+}
+
+ul {
+  font-size: 1.7rem;
+  margin: 1rem 3rem;
+  line-height: 2rem;
+}
+
+li {
+  margin-bottom: 1rem;
+}
+
+a {
+  color: #158cad;
+  text-decoration: none;
+}
+
+.big {
+  font-size: 1.7rem;
+}
+
+.dark a {
+  color: #19abd4;
+}
+
+pre {
+  border-radius: 0.25rem;
+}
+
+q {
+  font-family: 'clearsans-italic';
+}
+
+.seriously {
+  background: url(airplane-cant-be-serious.gif) center center no-repeat;
+  background-size: cover;
+}
+
+.bespoke-progress-parent {
+  position: absolute;
+  top: 0;
+  height: 0.25rem;
+  left: 0;
+  right: 0;
+  background-color: #eee;
+}
+
+.bespoke-progress-bar {
+  height: 100%;
+  background-color: #19abd4;
+  transition: all 300ms ease;
+}

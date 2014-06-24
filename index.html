@@ -1,1 +1,351 @@
-Hello, BordeauxJS !
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="stylesheet" href="bower_components/prism/themes/prism-tomorrow.css">
+  <link rel="stylesheet" href="styles.css">
+
+  <title>Keep calm and React</title>
+</head>
+<body>
+
+  <article>
+
+    <section>
+      <div class="title">
+        <img class="logo" src="react-logo.png">
+        <div>keep</div>
+        <div>calm</div>
+        <div class="small">and</div>
+        <div>react</div>
+        <div>!</div>
+      </div>
+    </section>
+
+    <section data-bespoke-state="">
+      <h2>Qui suis-je ?</h2>
+      <div class="big">
+        <a href="http://twitter.com/thibautseguy">@thibautseguy</a>
+        <span style="opacity: 0.25">|</span>
+        <a href="http://github.com/thibauts">github.com/thibauts</a>
+      </div>
+      <ul>
+        <li>Dev low-level, applications lourdes</li>
+        <li>Dev web traditionnel puis SPAs / mobile</li>
+      </ul>
+    </section>
+
+    <section data-bespoke-state="">
+      <h2>React c'est quoi ? </h2>
+      <ul>
+        <li class="bullet">Un outil développé chez Facebook</li>
+        <li class="bullet">Un framework client-side ? Non</li>
+        <li class="bullet">Le V de MVC ? Pas vraiment</li>
+        <li class="bullet"><strong>Une abstraction du DOM</strong></li>
+      </ul>
+    </section>
+
+    <section data-bespoke-state="">
+      <h2>React c'est quoi ? </h2>
+      <img src="react_architecture.svg">
+    </section>
+
+    <section>
+      <h2>Composant minimal</h2>
+<pre><code class="language-javascript">var html = React.DOM;
+
+var Hello = React.createClass({
+  render: function() {
+    return html.p(null, 'Hello, ' + this.props.name + ' !');
+  }
+});  
+
+React.renderComponent(Hello({ name: 'BordeauxJS' }), document.body);
+</code></pre>
+    <a href="exemples/exemple1.html" target="about:blank">demo</a>
+    </section>
+
+    <section>
+      <h2>Composition </h2>
+        <q>We control complexity by <strong>establishing conventional interfaces that enable us to construct systems by combining standard, well-understood pieces in a "mix and match" way</strong>. We control complexity by establishing new languages for describing a design, each of which emphasizes particular aspects of the design and deemphasizes others.</q>
+        <br>
+        Abelson &amp; Sussman, Structure and Interpretation of Computer Programs 
+    </section>
+
+    <section>
+      <h2>Composition </h2>
+      Un exemple simple
+<pre><code class="language-javascript">var html = React.DOM;
+
+var Hello = React.createClass({
+  render: function() {
+    return html.p(null, 'Hello, ' + this.props.name + ' !');
+  }
+});  
+
+var HelloBordeauxJS = React.createClass({
+  render: function() {
+    return html.div(
+      null,
+      Hello({ name: 'BordeauxJS' }) // <--
+    );
+  }
+});
+
+React.renderComponent(HelloBordeauxJS(), document.body);      
+</code></pre>
+    <a href="exemples/exemple2.html" target="about:blank">demo</a>
+    </section>
+
+    <section>
+      <h2>Séparation données / état</h2>
+      De manière générale : 
+      <ul>
+        <li>Données séparées de l'état de la vue</li>
+        <li>Données fournies au composant et accessibles via <code class="language-javascript">this.props</code></li>
+        <li>Etat du composant stocké dans <code class="language-javascript">this.state</code></li>
+      </ul>      
+    </section>    
+
+    <section>
+      <h2>Séparation données / état</h2>
+<pre><code class="language-javascript">var html = React.DOM;
+
+var ClickCounter = React.createClass({
+  getInitialState: function() {
+    return { clickCount: 0 }; // Etat initial
+  },
+
+  handleClick: function() {
+    this.setState({
+      clickCount: this.state.clickCount + 1 // Mise à jour de l'état lors d'un click
+    });
+  },
+
+  render: function() {
+    return html.button(
+      { onClick: this.handleClick }, // Callback click du bouton
+      this.props.text + ' ' + this.state.clickCount // <--
+    );
+  }
+});  
+
+React.renderComponent(ClickCounter({ text: 'Click me !' }), document.body);</code></pre>
+    <a href="exemples/exemple3.html" target="about:blank">demo</a>
+    </section>
+
+    <section>
+      <h2>En coulisses : le Virtual DOM</h2>
+      Lors d'un changement d'état :
+      <ul>
+        <li class="bullet"><strong>Rerender complet</strong> du DOM tree</li>
+        <li class="bullet"><strong>Diffing</strong> avec le tree précédent</li>
+        <li class="bullet"><strong>Génération du set de modifications</strong> minimal</li>
+        <li class="bullet"><strong>Mise à jour</strong> du DOM par batches</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Les bénéfices du Virtual DOM</h2>
+      <ul>
+        <li>Performances optimales</li>
+        <li>DOM toujours synchro avec l'état des composants</li>
+        <li>Raisonnement simplifié</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Cycle de vie des composants</h2>
+      <ul>
+        <li class="bullet">render</li>
+        <li class="bullet">getInitialState, setState</li>
+        <li class="bullet">componentWillMount, componentWillUnmount, componentDidMount</li>
+        <li class="bullet">componentWillUpdate, componentDidUpdate</li>
+        <li class="bullet">shouldComponentUpdate, componentWillReceiveProps</li>
+        <li class="bullet">Vous savez tout !</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Compatible avec les librairies et frameworks externes</h2>
+      <ul>
+        <li class="bullet">React peut ne s'occuper que d'une partie du DOM (Angular, Backbone, Ember ...)</li>
+        <li class="bullet">Une librairie peut gérer une partie du DOM sans interférence (D3, WebGL, canvas, plugin jQuery)</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Pas de lock-in</h2>
+      <ul>
+        <li>Unixy : <q>do one thing and do it well</q></li>
+        <li>Modèle, routage, etc : libs externes</li>
+        <li>Architecture libre (MVC go to hell)</li>
+        <li>Encourage au découplage du code métier (durée de vie du code)</li>
+      </ul>
+    </section>
+
+    <!-- ********************************************************************** -->
+
+    <section>
+      <h2>Où sont passés mes templates ??!</h2>
+      <ul>
+        <li class="bullet">Separation of languages !== Separation of Concerns</li>
+        <li class="bullet">Les modèles habituels mélangent données et états des vues ...</li>
+        <li class="bullet">et fournissent des primitives de templating pauvres ...</li>
+        <li class="bullet">ou bien réimplementent un sous-ensemble de javascript dans leur moteur de template</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Où sont passés mes templates ??!</h2>
+<pre class="bullet" style="width: 40rem;"><code class="language-markup">&lt;ul&gt;
+    &lt;li ng-repeat=&quot;user in users&quot;&gt;{{user.name}}&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+<pre class="bullet" style="width: 40rem;"><code class="language-javascript">Handlebars.registerHelper('if', function(conditional, options) {
+  if(conditional) {
+    return options.fn(this);
+  }
+});</code></pre>
+    </section>
+
+    <section data-bespoke-state="seriously"></section>
+
+    <section>
+      <h2>Un préprocesseur optionnel : JSX</h2>
+      <ul>
+        <li class="bullet">Permet d'utiliser un langage proche du HTML au sein du code Javascript</li>
+      </ul>
+      <div class="bullet" style="text-align: center">
+
+<pre><code class="language-javascript">/** @jsx React.DOM */
+
+var Hello = React.createClass({
+  render: function() {
+    return &lt;p&gt;Hello, {this.props.name} !&lt;/p&gt;;
+  }
+});  
+
+var HelloBordeauxJS = React.createClass({
+  render: function() {
+    return (
+      &lt;div&gt;
+        &lt;Hello name=&quot;BordeauxJS&quot; /&gt;
+      &lt;/div&gt;
+    );
+  }
+});
+
+React.renderComponent(&lt;HelloBordeauxJS /&gt;, document.body);      
+</code></pre>
+    <a href="exemples/exemple4.html" target="about:blank">demo</a>
+    </div>
+    </section>
+
+    <section>
+      <h2>Un préprocesseur optionnel : JSX</h2>
+      <ul>
+        <li class="bullet">Facilite la lecture et l'écriture de hiérarchies de composants</li>
+        <li class="bullet">Transformé en JS lintable</li>
+        <li class="bullet">Les numéros de lignes sont préservés</li>
+        <li class="bullet">Maintenance des composants + aisée pour les webdesigners</li>
+        <li class="bullet"><strong>Totalement optionnel</strong></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Pourquoi React ?</h2>
+      <ul>
+        <li class="bullet">Modèle de développement simple, facile à apprendre</li>
+        <li class="bullet">Charge cognitive légère : le code métier revient au coeur de l'appli</li>
+        <li class="bullet">Accessible à des développeurs peu expérimentés</li>
+        <li class="bullet">Moins de bugs, d'arrachages de cheveux, de WTF et d'heures à lire des docs</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Mon expérience avec React</h2>
+      <ul>
+        <li class="bullet">Développement d'un appli client avec Backbone sur 6 mois</li>
+        <li class="bullet">Complexité  = 0(n<sup>wtf</sup>)</li>
+        <li class="bullet">Découverte de React, sans conviction au départ</li>
+        <li class="bullet"><strong>Application réécrite avec React en 2 semaines</strong></li>
+        <li class="bullet">Ajout de fonctionnalités en continu depuis, maintenance facile</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Bilan</h2>
+      <ul>
+        <li class="bullet"><strong>Client qui passe de :/ à :D</strong></li>
+        <li class="bullet">Je conserve une vision d'ensemble (simple) de l'application</li>
+        <li class="bullet">Le code est <strong>facilement maintenable</strong>, y compris par un tiers</li>
+        <li class="bullet">La durée de vie du code et sa valeur sont démultipliées</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>React en production ?</h2>
+      <ul>
+        <li>Instagram (web) intégralement développé avec</li>
+        <li>De plus en plus d'éléments de Facebook</li>
+        <li>Khan Academy, New York Times, AirBnB, Atlassian ...</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Quelques témoignages</h2>
+      <q>React is awesome. <strong>It is the biggest change to how I approach web development that I can remember over the last 10+ years</strong>. It has made many things that used to be laborious and error-prone fun and robust.</q>
+      <br>
+      <q>Every time I finish up a React component, <strong>I'm blown away by how much simpler (and shorter) the code is</strong> compared to a traditional Backbone view — particularly when multiple subviews are involved.</q>
+      <br>
+      <q>I absolutely love React. It's small and does what it aims to do just great. <strong>You can probably learn React in an hour or two</strong>.</q>
+      <br>
+      <q>We started in Backbone, then migrated to Angular to mitigate nested view chaos. Latest rewrite drops Angular in favor of React and a bit of Backbone, mostly to reduce the learning curve for new devs. <strong>Using React for views is the simplest/most robust stack we've experienced</strong>. Easier to share/reuse code, easier to debug.</q>
+      <br>
+      <q><strong>It is a serious paradigm shift</strong> [...] With React, <strong>my app got around x13 more performant</strong>.</q>
+      <br>
+      <div>Source : <a href="https://news.ycombinator.com/item?id=7489959">https://news.ycombinator.com/item?id=7489959</a></div>
+    </section>
+
+    <section>
+      <h2>Pour conclure</h2>
+      <ul>
+        <li class="bullet">Investissez une heure ou deux pour tester, vous ne le regretterez pas</li>
+        <li class="bullet">Un changement de paradigme ...</li>
+        <li class="bullet">Une nouvelle page dans le développement d'UIs navigateur</li>
+        <li class="bullet">Participez à l'écrire !</li>
+      </ul>
+    </section>
+
+    <section>
+      <h1>Merci !</h1>
+      <a class="big" href="http://twitter.com/thibautseguy">@thibautseguy</a>
+      <a class="big" href="http://github.com/thibauts">github.com/thibauts</a>
+    </section>
+
+  </article>
+
+  <script src="bower_components/bespoke.js/dist/bespoke.min.js"></script>
+  <script src="bower_components/bespoke-keys/dist/bespoke-keys.min.js"></script>
+  <script src="bower_components/bespoke-touch/dist/bespoke-touch.min.js"></script>
+  <script src="bower_components/bespoke-progress/dist/bespoke-progress.min.js"></script>
+  <script src="bower_components/bespoke-hash/dist/bespoke-hash.min.js"></script>
+  <script src="bower_components/bespoke-bullets/dist/bespoke-bullets.min.js"></script>
+  <script src="bower_components/bespoke-state/dist/bespoke-state.min.js"></script>
+  <script src="bower_components/prism/prism.js"></script>
+  <script>
+    bespoke.from('article', {
+      keys: true,
+      touch: true,
+      progress: true,
+      bullets: '.bullet',
+      state: true,
+      hash: true
+    });
+  </script>
+
+</body>
+</html>

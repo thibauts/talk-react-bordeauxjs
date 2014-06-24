@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script src="http://fb.me/react-0.10.0.js"></script>
+  <script>
+    var html = React.DOM;
+
+    var Hello = React.createClass({
+      render: function() {
+        return html.p(null, 'Hello, ' + this.props.name + ' !');
+      }
+    });  
+
+    window.addEventListener('load', function() {
+      React.renderComponent(Hello({ name: 'BordeauxJS' }), document.body);      
+    }, false);
+  </script>
+</head>
+<body>
+</body>
+</html>

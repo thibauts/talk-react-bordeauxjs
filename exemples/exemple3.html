@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script src="http://fb.me/react-0.10.0.js"></script>
+  <script>
+    var html = React.DOM;
+
+    var ClickCounter = React.createClass({
+      getInitialState: function() {
+        return { clickCount: 0 }; // Etat initial
+      },
+
+      handleClick: function() {
+        this.setState({
+          clickCount: this.state.clickCount + 1 // Mise à jour de l'état lors d'un click
+        });
+      },
+
+      render: function() {
+        return html.button(
+          { onClick: this.handleClick }, // Callback click du bouton
+          this.props.text + ' ' + this.state.clickCount // <--
+        );
+      }
+    });  
+
+    window.addEventListener('load', function() {
+      React.renderComponent(ClickCounter({ text: 'Click me !' }), document.body);
+    }, false);
+  </script>
+</head>
+<body>
+</body>
+</html>
